@@ -17,7 +17,7 @@ else
 fi
 
 # Run Pest for testing
-./vendor/bin/sail artisan test
+artisan test
 PEST_EXIT_CODE=$?
 
 # Check if any of the commands failed
