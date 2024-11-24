@@ -18,13 +18,13 @@ return new class extends Migration
         });
 
         // Adds a database trigger to limit the number of rows to 10
-          if (Schema::hasTable('car_park_spaces')) {
+          if (Schema::hasTable('car_park_spaces_reference')) {
             DB::unprepared('
-                CREATE TRIGGER limit_car_park_spaces
-                BEFORE INSERT ON car_park_spaces
+                CREATE TRIGGER limit_car_park_spaces_reference
+                BEFORE INSERT ON car_park_spaces_reference
                 FOR EACH ROW
                 BEGIN
-                    IF (SELECT COUNT(*) FROM car_park_spaces) >= 10 THEN
+                    IF (SELECT COUNT(*) FROM car_park_spaces_reference) >= 10 THEN
                         SIGNAL SQLSTATE "45000"
                         SET MESSAGE_TEXT = "Cannot insert more than 10 car park spaces";
                     END IF;
@@ -41,6 +41,6 @@ return new class extends Migration
         Schema::dropIfExists('car_park_spaces_reference');
 
          // Drops the trigger
-        DB::unprepared('DROP TRIGGER IF EXISTS limit_car_park_spaces');
+        DB::unprepared('DROP TRIGGER IF EXISTS limit_car_park_spaces_reference');
     }
 };
