@@ -29,7 +29,7 @@ class CarParkBooking extends Model
 
     /**
      * Get the car park space that belongs to the booking.
-     * @var BelongsTo
+     * @return BelongsTo
      */
 
     public function carParkSpace(): BelongsTo
