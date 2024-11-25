@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('car_park_bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('car_park_space_id');
+             /*creates a foreign key constraint that looks at the id column of the car_park_spaces_references table
+            Ensures that if a parking space is deleted in the car_park_spaces_references table
+            all related bookings for that space are also deleted automatically in car_park_bookings_table */
+            $table->foreignId('car_park_space_id')->constrained('car_park_spaces_references')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
-
-            $table->foreign('car_park_space_id')->references('id')->on('car_park_spaces_references')->onDelete('cascade');
         });
     }
 
@@ -30,4 +31,3 @@ return new class extends Migration
         Schema::dropIfExists('car_park_bookings');
     }
 };
-
