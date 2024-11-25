@@ -12,19 +12,19 @@ return new class extends Migration
      */
  public function up(): void
     {
-        Schema::create('car_park_spaces_reference', function (Blueprint $table) {
+        Schema::create('car_park_spaces_references', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
 
         // Adds a database trigger to limit the number of rows to 10
-          if (Schema::hasTable('car_park_spaces_reference')) {
+          if (Schema::hasTable('car_park_spaces_references')) {
             DB::unprepared('
-                CREATE TRIGGER limit_car_park_spaces_reference
-                BEFORE INSERT ON car_park_spaces_reference
+                CREATE TRIGGER limit_car_park_spaces_references
+                BEFORE INSERT ON car_park_spaces_references
                 FOR EACH ROW
                 BEGIN
-                    IF (SELECT COUNT(*) FROM car_park_spaces_reference) >= 10 THEN
+                    IF (SELECT COUNT(*) FROM car_park_spaces_references) >= 10 THEN
                         SIGNAL SQLSTATE "45000"
                         SET MESSAGE_TEXT = "Cannot insert more than 10 car park spaces";
                     END IF;
@@ -38,9 +38,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('car_park_spaces_reference');
+        Schema::dropIfExists('car_park_spaces_references');
 
          // Drops the trigger
-        DB::unprepared('DROP TRIGGER IF EXISTS limit_car_park_spaces_reference');
+        DB::unprepared('DROP TRIGGER IF EXISTS limit_car_park_spaces_references');
     }
 };
