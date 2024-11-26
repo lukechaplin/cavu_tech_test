@@ -11,4 +11,8 @@ Route::get('/check-car-park-availability', [BookingController::class, 'checkCarP
 
 Route::get('/check-car-park-price', [BookingController::class, 'calculateTotalPrice']);
 
-Route::get('/book-car-park-space', [BookingController::class, 'bookCarParkSpace']);
+Route::post('/book-car-park-space', [BookingController::class, 'bookCarParkSpace']);
+
+Route::delete('/cancel-car-park-booking', [BookingController::class, 'cancelCarParkBooking']);
+
+Route::patch('/update-car-park-booking', [BookingController::class, 'updateCarParkBooking']);

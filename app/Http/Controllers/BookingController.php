@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CarParkBooking;
 use App\Util\GetDailyRate;
+use App\Util\CheckSpaceAvailable;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Carbon\Carbon;
@@ -16,11 +17,6 @@ class BookingController extends Controller
      */
     public function checkCarParkAvailbility(Request $request): JsonResponse
     {
-
-        $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-        ]);
 
         $start_date = Carbon::parse($request->start_date);
         $end_date = Carbon::parse($request->end_date);
@@ -41,17 +37,17 @@ class BookingController extends Controller
 
      public function calculateTotalPrice(Request $request): JsonResponse
     {
-        $start = Carbon::parse($request->start_date);
-        $end = Carbon::parse($request->end_date);
+        $start_date = Carbon::parse($request->start_date);
+        $end_date = Carbon::parse($request->end_date);
         $daily_rate = GetDailyRate::getInstance();
         $total_price = 0;
 
-        while ($start->lessThan($end)) {
-            $month = $start->month;
-            $isWeekend = $start->isWeekend();
+        while ($start_date->lessThan($end_date)) {
+            $month = $start_date->month;
+            $isWeekend = $start_date->isWeekend();
             $daily_rate_price = $daily_rate->getDailyRate($month, $isWeekend);
             $total_price += $daily_rate_price;
-            $start->addDay();
+            $start_date->addDay();
         }
 
         return response()->json(['message' =>  "Price for booking will be £$total_price"], 200, [], JSON_UNESCAPED_UNICODE);
@@ -65,35 +61,80 @@ class BookingController extends Controller
 
     public function bookCarParkSpace(Request $request): JsonResponse
     {
-        $request->validate([
-            'car_park_space_id' => 'required|exists:car_park_spaces_references,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-        ]);
-
         $car_park_space_id = $request->car_park_space_id;
         $start_date = Carbon::parse($request->start_date);
         $end_date = Carbon::parse($request->end_date);
 
-        CarParkBooking::create([
+        $spaceAvailable = CheckSpaceAvailable::getInstance()->checkSpaceAvailable($car_park_space_id, $start_date, $end_date);
+
+        if ($spaceAvailable) {
+            return response()->json(['message' => 'car park space already booked'], 400);
+        }
+        else {
+            CarParkBooking::create([
             'car_park_space_id' => $car_park_space_id,
             'start_date' => $start_date,
             'end_date' => $end_date,
         ]);
 
-        $start = Carbon::parse($request->start_date);
-        $end = Carbon::parse($request->end_date);
         $daily_rate = GetDailyRate::getInstance();
         $total_price = 0;
 
-        while ($start->lessThan($end)) {
-            $month = $start->month;
-            $isWeekend = $start->isWeekend();
+        while ($start_date->lessThan($end_date)) {
+            $month = $start_date->month;
+            $isWeekend = $start_date->isWeekend();
             $daily_rate_price = $daily_rate->getDailyRate($month, $isWeekend);
             $total_price += $daily_rate_price;
-            $start->addDay();
+            $start_date->addDay();
         }
 
         return response()->json(['message' => "car park space booked successfully, total paid £$total_price"], 201, [], JSON_UNESCAPED_UNICODE);
+
+        }
+    }
+
+    /**
+     * Cancel a car park booking
+     * @return JsonResponse
+     */
+
+    public function cancelCarParkBooking(Request $request): JsonResponse
+    {
+        $car_park_space_id = $request->car_park_space_id;
+
+        $booking = CarParkBooking::where('car_park_space_id', $car_park_space_id)->first();
+        $booking->delete();
+
+
+        return response()->json(['message' => "car park booking for car park space $car_park_space_id cancelled successfully" ], 200);
+    }
+
+    /**
+     * Update a car park booking
+     * @return JsonResponse
+     */
+
+    public function updateCarParkBooking(Request $request): JsonResponse
+    {
+        $car_park_space_id = $request->car_park_space_id;
+        $start_date = Carbon::parse($request->start_date);
+        $end_date = Carbon::parse($request->end_date);
+        $daily_rate = GetDailyRate::getInstance();
+        $total_price = 0;
+
+        while ($start_date->lessThan($end_date)) {
+            $month = $start_date->month;
+            $isWeekend = $start_date->isWeekend();
+            $daily_rate_price = $daily_rate->getDailyRate($month, $isWeekend);
+            $total_price += $daily_rate_price;
+            $start_date->addDay();
+        }
+
+        $booking = CarParkBooking::where('car_park_space_id', $car_park_space_id)->first();
+        $booking->start_date = $request->start_date;
+        $booking->end_date = $request->end_date;
+        $booking->save();
+
+        return response()->json(['message' => "car park booking updated successfully, new price is £$total_price"], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

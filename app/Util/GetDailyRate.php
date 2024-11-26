@@ -31,7 +31,7 @@ class GetDailyRate {
      * Get car park daily rate based on month and whether it is a weekend
      * @return float
      */
-        function getDailyRate($month, $isWeekend): float
+        public function getDailyRate($month, $isWeekend): float
     {
         if (in_array($month, [12, 1, 2])) { // Winter
             return $isWeekend ? $this->rates['winter_weekend'] : $this->rates['winter_weekday'];

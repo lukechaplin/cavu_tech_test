@@ -12,6 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+         $middleware->validateCsrfTokens(except: [
+        '/book-car-park-space',
+        '/cancel-car-park-booking',
+        '/update-car-park-booking',
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
