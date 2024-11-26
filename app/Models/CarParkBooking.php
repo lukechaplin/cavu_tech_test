@@ -13,7 +13,7 @@ class CarParkBooking extends Model
      *
      * @var string
      */
-      protected $table = 'car_park_bookings_table';
+      protected $table = 'car_park_bookings';
 
 
     /**
