@@ -53,7 +53,7 @@ To use the API endpoints install an API testing tool like Postman or Insomnia
 Also to help visualise and make interacting with the app's database easier I would recommend using a database UI tool like [DBeaver](https://dbeaver.io/).
 
 Also be aware that the PHPstan linter has been used throughout the app - I have set up a pre-push hook to run while writing the app to ensure code quality and adherence to PSR-1 standards throughout.
-PHPstan includes larastan a static analysis tool to find bugs as php is not a complied language and also weakly typed.
+PHPstan includes larastan a static analysis tool to find bugs as php is not a compiled language and also weakly typed.
 
 ## Usage
 
