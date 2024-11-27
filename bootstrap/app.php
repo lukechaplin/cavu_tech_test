@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         '/book-car-park-space',
         '/cancel-car-park-booking',
         '/update-car-park-booking',
+        '/check-car-park-availability',
+        '/check-car-park-price',
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

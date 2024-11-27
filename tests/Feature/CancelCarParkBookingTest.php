@@ -9,7 +9,7 @@ use App\Models\CarParkBooking;
 uses(DatabaseTruncation::class);
 
 describe('CancelCarParkBookingTest', function() {
-    // Seed the car_par_spaces_reference_table in test database
+    // Seed the car_par_spaces_reference table in test database
      beforeEach(function() {
         $this->seed(CarParkSpacesSeeder::class);
 

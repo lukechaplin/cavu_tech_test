@@ -1,66 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Cavu Test Submission
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is my submission for the Cavu tech test it has been written in php using the Laravel framework with the local development and testing database environments using MySQL.
 
-## About Laravel
+Feature and unit tests are written using the Pest framework.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+My solution takes into the following problem statement:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**There is a car park at the Manchester Airport.**
+**The car park has 10 spaces available so only 10 cars can be parked at the same time. Customers
+should be able to park a car for a given period (i.e. 10 days).**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+and the following acceptance criteria:
 
-## Learning Laravel
+-   Customers should be able to check if there’s an available car parking space for a given
+    date range.
+-   Customer should be able to check parking price for the given dates (i.e., Weekday/Weekend Pricing, Summer/Winter Pricing)
+-   Customers should be able to create a booking for given dates (from - to)
+-   Customers should be able to cancel their booking.
+-   Customers should be able to amend their booking.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+and the following constraints:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   Number of available spaces
+-   API should show how many spaces for given date is available (per day)
+-   Parking date from - date to when car is being dropped off at the car park.
+-   Parking date from - date to when car will be picked up from the car park.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation and requirements
 
-## Laravel Sponsors
+Before using the app please ensure you have the latest version of php, composer, Laravel installer, Pest and MySQL all installed before running the app.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+[PHP Installation guide](https://www.php.net/manual/en/install.php)
 
-### Premium Partners
+[Composer Installation guide](https://getcomposer.org/download/)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+[Laravel Installation guide](https://laravel.com/docs/11.x/installation)
 
-## Contributing
+[Pest Installation guide](https://pestphp.com/docs/installation)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+[Windows MySQL Installation guide ](https://dev.mysql.com/downloads/installer/)
 
-## Code of Conduct
+To install MySQL on mac use brew for ease of use installation and the following command:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`brew install mysql`
 
-## Security Vulnerabilities
+To use the API endpoints install an API testing tool like Postman or Insomnia
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+[Postman Installation guide](https://www.postman.com/downloads/)
 
-## License
+[Insomnia Installation guide](https://docs.insomnia.rest/insomnia/install)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Also to help visualise and make interacting with the app's database easier I would recommend using a database UI tool like [DBeaver](https://dbeaver.io/).
+
+Also be aware that the PHPstan linter has been used throughout the app - I have set up a pre-push hook to run while writing the app to ensure code quality and adherence to PSR-1 standards throughout.
+PHPstan includes larastan a static analysis tool to find bugs as php is not a complied language and also weakly typed.
+
+## Usage
+
+All commands in Laravel use artisan - Laravel's built in CLI tool.
+
+To run the laravel app - will run on localhost:8000
+
+`php artisan serve`
+
+To run the tests use
+
+`php artisan test`
+
+Also before using any API endpoints spin up MySQL using
+
+On Windows
+
+[Follow the instructions here](https://dev.mysql.com/doc/mysql-getting-started/en/)
+
+On Mac
+
+`brew services start mysql`
+
+Also ensure database table migrations have been run to create the relevant tables
+
+`php artisan migrate`
+
+and the relevant database table is seeded
+
+`php artisan db:seed --class=CarParkSpacesSeeder`
+
+## Using Endpoints
+
+Check car park spaces available endpoint
+
+`POST /check-car-park-availability`
+
+Example req payload:
+
+```
+{
+    "start_date": "2024-12-20",
+    "end_date": "2024-12-25"
+}
+```
+
+Calculate car parking price for given dates
+
+`POST /check-car-park-price`
+
+Example req payload:
+
+```
+{
+    "start_date": "2024-12-20",
+    "end_date": "2024-12-25"
+}
+```
+
+Car park booking endpoint
+
+`POST /book-car-park-space'`
+
+Example req payload:
+
+```
+{
+    "car_park_space_id": "1",
+    "start_date": "2024-12-20",
+    "end_date": "2024-12-25"
+}
+
+```
+
+Update car park booking endpoint
+
+`PATCH /update-car-park-booking`
+
+Example req payload:
+
+```
+{
+    "car_park_space_id": "1",
+    "start_date": "2024-12-22",
+    "end_date": "2024-12-27"
+}
+```
+
+Cancel Car park booking endpoint
+
+`DELETE /cancel-car-park-booking`
+
+Example req payload
+
+```
+{
+    "car_park_space_id": "1"
+}
+```
+
+## Summary of Solution
+
+To limit the car park to 10 available spaces I used one database table for bookings linked to another table which holds the number of car park spaces (rows) via a foriegn key and acts as a reference table, this ensures if any attempt at booking a car park space with an id of greater than 10 is made it will be prevented.
+
+The reference table utilises a database trigger so that no more than 10 rows can be added.
+I utilised a database trigger as this is more secure than having this logic in the app codebase and aligns the business rules with the database schema and decouples these rules from the app thereby adhering to clean architecture principles.
+
+![](foreign_key_linkage.png)
+
+## Potential Improvements
+
+List out available spaces:
+Potential to have is_booked column with boolean value and any with false can be counted as available - this could be added to the `check-car-park-availability` endpoint response.
+
+Decoupling of database logic:
+To further decouple business logic between layers current ORM model logic could be moved from controllers to their own classes and then just invoked in controllers as needed this ensures controllers are not aware of code running in a lower level component in another layer as per clean architecture principles.
