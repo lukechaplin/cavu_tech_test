@@ -8,24 +8,24 @@ use App\Models\CarParkBooking;
 
 uses(DatabaseTruncation::class);
 
-describe('CancelCarParkBookingTest', function() {
+describe('UpdateCarParkBookingTest', function() {
     // Seed the car_par_spaces_reference_table in test database
      beforeEach(function() {
         $this->seed(CarParkSpacesSeeder::class);
 
-     // Insert a record into the car_park_bookings table
-        CarParkBooking::create([
+    // Insert a record into the car_park_bookings table
+       CarParkBooking::create([
             'car_park_space_id' => '1',
             'start_date' => '2024-12-20',
             'end_date' => '2024-12-25',
         ]);
     });
 
-    it('should delete a booking record in the car_park_bookings table with a given car_park_space_id', function () {
-       $response = $this->deleteJson('/cancel-car-park-booking', [
+    it('should update a booking record in the car_park_bookings table for a given car_park_space_id"', function () {
+       $response = $this->patchJson('/update-car-park-booking', [
           "car_park_space_id" => "1",
-          "start_date" => "2024-12-20",
-          "end_date" => "2024-12-25"
+          "start_date" => "2024-12-22",
+          "end_date" => "2024-12-27"
        ]);
 
        $this->assertJson($response->getContent());
@@ -33,7 +33,7 @@ describe('CancelCarParkBookingTest', function() {
        $response->assertStatus(200);
 
        $response->assertJson([
-        'message' => 'car park booking for car park space 1 cancelled successfully'
+        'message' => 'car park booking updated successfully, new price is £80'
     ]);
     });
 });

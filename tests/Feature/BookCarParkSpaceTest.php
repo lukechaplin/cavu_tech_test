@@ -13,7 +13,7 @@ describe('BookCarParkSpaceTest', function() {
         $this->seed(CarParkSpacesSeeder::class);
     });
 
-    it('should return correctly when booking a car park space with car_park_space_id value between 1 - 10 inclusive', function () {
+    it('should create a booking record in the car_park_bookings table when given car_park_space_id value between 1 - 10 inclusive', function () {
        $response = $this->postJson('/book-car-park-space', [
           "car_park_space_id" => "1",
           "start_date" => "2024-12-20",
@@ -30,7 +30,7 @@ describe('BookCarParkSpaceTest', function() {
     });
 
 
-    it('should return error 500 when booking a car park space with car_park_space_id value over 11', function () {
+    it('should return error 500 when attempting to create a booking record in car_park_bookings table when given car_park_space_id value 11 and over', function () {
 
        $response = $this->postJson('/book-car-park-space', [
           "car_park_space_id" => "11",
