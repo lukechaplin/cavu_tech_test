@@ -4,13 +4,6 @@ namespace Tests\Unit;
 
 use App\Util\GetDailyRate;
 
-//test for summmer weekday
-//test for summer weekend
-//test for winter weekday
-//test for wimter weekend
-//test for rest of the year weekday
-//test for rest of the year weekend
-
 describe('GetDailyRatesTest', function() {
     it('testgetDailyRateWinterWeekday', function () {
         $daily_rate = GetDailyRate::getInstance();
