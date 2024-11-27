@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/check-car-park-availability', [CheckCarParkAvailabilityController::class, 'checkCarParkAvailability']);
+Route::post('/check-car-park-availability', [CheckCarParkAvailabilityController::class, 'checkCarParkAvailability']);
 
 Route::post('/check-car-park-price', [CalculateTotalPriceController::class, 'calculateTotalPrice']);
 

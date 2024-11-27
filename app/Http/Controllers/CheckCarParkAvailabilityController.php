@@ -24,7 +24,7 @@ class CheckCarParkAvailabilityController extends Controller
         if (CarParkBooking::count() < 10) {
             $sum = CarParkBooking::where('start_date', '>=', $start_date)->where('end_date', '<=', $end_date)->count();
             $total = 10 - $sum;
-            return response()->json(['message' => 'car park spaces available to book', 'spaces available' => $total], 200);
+            return response()->json(['message' => "car park spaces available to book, spaces available $total"], 200);
         } else {
             return response()->json(['message' => 'no car park spaces available'], 200);
         }
