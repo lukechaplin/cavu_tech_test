@@ -63,7 +63,7 @@ To run the laravel app - will run on localhost:8000
 
 `php artisan serve`
 
-To run the tests use
+To run the tests use (feature tests require testing database spun up to run)
 
 `php artisan test`
 
