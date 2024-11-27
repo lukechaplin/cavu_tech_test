@@ -2,10 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-uses(RefreshDatabase::class);
-
 describe('CalculateTroralPrice', function() {
 
     it('should calculate total price for booking a car park space', function () {
