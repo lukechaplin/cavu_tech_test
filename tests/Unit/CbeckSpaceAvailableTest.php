@@ -64,7 +64,7 @@ describe('CbeckSpaceAvailableTest', function() {
                         $query->where('start_date', '<=', $start_date)
                             ->where('end_date', '>=', $end_date);
                     });
-                return true;
+                return false;
             }))
             ->andReturnSelf();
         $this->mock->shouldReceive('exists')
