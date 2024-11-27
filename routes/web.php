@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::get('/check-car-park-availability', [CheckCarParkAvailabilityController::class, 'checkCarParkAvailability']);
 
-Route::get('/check-car-park-price', [CalculateTotalPriceController::class, 'calculateTotalPrice']);
+Route::post('/check-car-park-price', [CalculateTotalPriceController::class, 'calculateTotalPrice']);
 
 Route::post('/book-car-park-space', [BookCarParkSpaceController::class, 'bookCarParkSpace']);
 
