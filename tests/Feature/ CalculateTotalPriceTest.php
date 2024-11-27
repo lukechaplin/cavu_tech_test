@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-describe('CalculateTroralPrice', function() {
+describe('CalculateTotalPrice', function() {
 
     it('should calculate total price for booking a car park space', function () {
        $response = $this->postJson('/check-car-park-price', [
