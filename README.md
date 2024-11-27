@@ -63,11 +63,7 @@ To run the laravel app - will run on localhost:8000
 
 `php artisan serve`
 
-To run the tests use (feature tests require testing database spun up to run)
-
-`php artisan test`
-
-Also before using any API endpoints spin up MySQL using
+Before using any API endpoints, they require that MySQL is spun up so databases are accessible
 
 On Windows
 
@@ -84,6 +80,12 @@ Also ensure database table migrations have been run to create the relevant table
 and the relevant database table is seeded
 
 `php artisan db:seed --class=CarParkSpacesSeeder`
+
+To run the tests use
+
+`php artisan test`
+
+(feature tests require testing database in MySQL is spun up to run)
 
 ## Using Endpoints
 
