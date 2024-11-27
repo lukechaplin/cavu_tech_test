@@ -8,7 +8,7 @@ use Mockery;
 use Carbon\Carbon;
 
 
-describe('CbeckSpaceAvailableTest', function() {
+describe('CheckSpaceAvailableTest', function() {
      beforeEach(function() {
         $this->mock = Mockery::mock(CarParkBooking::class);
         $this->instance(
